@@ -5,7 +5,7 @@
 + [**``AT&T Archives: The UNIX Operating System``**](https://www.youtube.com/watch?v=tc4ROCJYbm0)
 + [**``Stream HandBook``**](https://github.com/substack/stream-handbook)
 
-不过管道也有缺陷: Unix标准管道是``半双工的``, 即数据只能单向传递, 虽然现在不少``*nix``系统支持全双工管道, 但是不具有移植性; 此外管道作为一种数据传输的手段虽然是异步的, 但是需要依靠进程, 比较"昂贵".
+不过管道也有缺陷: Unix标准管道是``半双工的``, 即数据只能单向传递, 虽然现在不少``*nix``系统支持全双工管道, 但是不具有移植性; 此外管道作为一种数据传输的手段虽然是异步的, 但是需要依靠多进程, 比较"昂贵".
 
 <hr/>
 
@@ -22,11 +22,11 @@
         |  process  |
         |           |
         -------------
-             |-------------- 
-             |      fork    \
-             |               \
-             v                \ 
-        -------------          \  ------------
+             |----------------
+             |      fork      \
+             |                 \
+             v                  \ 
+        -------------            \------------
         |   parent  |    pipe     |  child   |
         |           |_ __ __ __ __|          |
         |write:fd[1] _->_->_->_->_ read:fd[0]|
@@ -37,3 +37,7 @@
 ## 管道的应用
 
 + [**``more_pipe.c``**](https://github.com/misakar/learn_apue/blob/master/pipe/more_pipe.c): 文件分页显示
+
++ [**``charatatime.c``**](): 进程间同步
+    1. [**``sync_pipe.c``**](https://github.com/misakar/learn_apue/blob/master/pipe/sync_pipe.c): 管道实现
+    2. [sync_signal.c](): 信号实现
