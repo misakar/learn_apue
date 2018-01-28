@@ -38,6 +38,6 @@
 
 + [**``more_pipe.c``**](https://github.com/misakar/learn_apue/blob/master/pipe/more_pipe.c): 文件分页显示
 
-+ [**``charatatime.c``**](): 进程间同步
-    1. [**``sync_pipe.c``**](https://github.com/misakar/learn_apue/blob/master/pipe/sync_pipe.c): 管道实现
-    2. [sync_signal.c](): 信号实现
++ [**``charatatime.c``**](https://github.com/misakar/learn_apue/blob/master/pipe/more_pipe.c): 进程间同步
+    - [**``sync_pipe.c``**](https://github.com/misakar/learn_apue/blob/master/pipe/sync_pipe.c): 管道实现
+    - [sync_signal.c](): 信号实现
