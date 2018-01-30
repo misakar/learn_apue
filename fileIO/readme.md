@@ -77,10 +77,42 @@ ssize_t write(int fd, const void* buf, size_t nbytes);
 
 ## 文件共享
 
-打开文件的数据结构:
+``进程打开文件的数据结构``:
 
 1. ``进程文件描述符表``
 2. ``内核文件表``
 3. ``v-node和i-node``
+    + linux系统只有通用i-node(包括与文件无关的i-node)
 
 ![](https://notes.shichao.io/apue/figure_3.7_600.png)
+
+``2个进程打开同一文件:``
+
+![](https://notes.shichao.io/apue/figure_3.8_600.png)
+
+v节点上的数据会被写入磁盘, 在打开文件时从磁盘读入内存, 涉及v节点改变的操作会进行磁盘IO. lseek仅仅改变文件偏移量(修改文件表项), 不进行任何IO操作. <br/>
+
+## 原子操作
+
+``要么不执行、要么执行完``
+
++ ``lseek + read/write`` => 原子操作: ``pread/pwrite``
++ ``open + creat`` => 原子操作: ``open(O_CREAT|O_EXCL)``
+
+## dup/dup2
+
+> 复制文件描述符
+
+![](https://notes.shichao.io/apue/figure_3.9_600.png)
+
+## sync/fsync/fdatasync
+
+``同步内核文件高速缓存到硬盘``
+
++ ``void sync(void);``: 同步所有文件缓存到硬盘, 无需等待数据写入硬盘就返回
++ ``int fsync(int fd)``: 同步fd指向的文件的缓存到磁盘, 需等待数据完全写入硬盘后返回
++ ``int fdatasync(int fd)``: 相比于fsync, 只把文件数据写入硬盘而不更新文件状态
+
+## fcntl
+
+> 终于到fcntl了, 看这一章的目的就是为了解决libuv中的uv__cloexec_fcntl, lib2333!
