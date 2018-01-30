@@ -13,7 +13,7 @@ int open(const char* path, int oflag, ... /* mode_t mode */);
 int openat(int fd, const char* path, int oflag, ... /* mode_t mode */);
 ```
 
-+ [``check_TRUNC.c``](): 测试``O_TRUNC`` flag
++ [``check_TRUNC.c``](https://github.com/misakar/learn_apue/blob/master/fileIO/check_TRUNC.c): 测试``O_TRUNC`` flag
 
 ### creat
 
@@ -49,14 +49,15 @@ int close (int fd);
 off_t lseek(int fd, off_t offset, int whence);
 ```
 
-whence的值:
+``whence的值:``
 
 + ``SEEK_SET``: 文件开头
 + ``SEEK_CUR``: 当前文件位置
 + ``SEEK_END``: 文件末尾
 
-+ [``check_offset.c``](): 测试文件描述符指向的设备能否设置偏移
-+ [``file_hole.c``](): 文件空洞
+
++ [``check_offset.c``](https://github.com/misakar/learn_apue/blob/master/fileIO/check_offset.c): 测试文件描述符指向的设备能否设置偏移
++ [``file_hole.c``](https://github.com/misakar/learn_apue/blob/master/fileIO/file_hole.c): 文件空洞
 
 ### read and write
 
@@ -67,7 +68,19 @@ ssize_t read(int fd, void* buf, size_t nbytes);
 ssize_t write(int fd, const void* buf, size_t nbytes);
 ```
 
-+ [``read_write_copy.c``](): 只使用read和write函数复制一个文件
++ [``read_write_copy.c``](https://github.com/misakar/learn_apue/blob/master/fileIO/read_write_copy.c): 只使用read和write函数复制一个文件
 
 ``read ahead``: <br/>
 当操作系统检测到程序正进行顺序读取时, 系统就试图读入比应用所要求的更多数据(放入高速缓存), 假想应用很快就会读这些数据.
+
+<hr/>
+
+## 文件共享
+
+打开文件的数据结构:
+
+1. ``进程文件描述符表``
+2. ``内核文件表``
+3. ``v-node和i-node``
+
+![](https://notes.shichao.io/apue/figure_3.7_600.png)
