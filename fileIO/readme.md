@@ -101,7 +101,7 @@ v节点上的数据会被写入磁盘, 在打开文件时从磁盘读入内存, 
 
 ## dup/dup2
 
-> 复制文件描述符
+``复制文件描述符``
 
 ![](https://notes.shichao.io/apue/figure_3.9_600.png)
 
@@ -116,3 +116,51 @@ v节点上的数据会被写入磁盘, 在打开文件时从磁盘读入内存, 
 ## fcntl
 
 > 终于到fcntl了, 看这一章的目的就是为了解决libuv中的uv__cloexec_fcntl, lib2333!
+
+fcntl用于改变**文件状态属性**和**文件描述符属性**, 由上面的图像可知, 每个进程的每个文件描述符都有不同的文件描述符属性, 但是这些文件描述符可能指向同一个文件表项(比如使用dup), 因而具有相同的文件状态属性. <br/>
+
++ [``get_file_flags.c``](https://github.com/misakar/learn_apue/blob/master/fileIO/get_file_flags.c): 获取文件描述符指向文件的状态标志
+
+
+**设置文件状态flags**<br/>
+
+```C
+#include "../apue.h"
+#include <fcntl.h>
+
+void set_fl(int fd, int flags) {
+    int val;
+
+    if ((val = fcntl(fd, F_GETFL, 0)) < 0) {
+        // error
+    }
+    val |= flags;
+    if (fcntl(fd, F_SETFL, val) < 0) {
+        // error
+    }
+}
+```
+
+**删除文件状态flags**<br/>
+
+```C
+#include "../apue.h"
+#include <fcntl.h>
+
+void del_fl(int fd, int flags) {
+    int val;
+
+    if ((val = fcntl(fd, F_GETFL, 0)) < 0) {
+        // error
+    }
+    val &= ~flags;
+    if (fcntl(fd, F_SETFL, val) < 0) {
+        // error
+    }
+}
+```
+
+## ioctl
+
+## /dev/fd
+
