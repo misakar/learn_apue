@@ -34,3 +34,13 @@ text    data     bss     dec     hex filename
 ## 存储空间分配
 
 ## 环境变量
+
+环境表初始存放在进程地址空间顶部, 位于内核映像和栈之间, 大小固定. 当添加新的环境变量时, 需要malloc/realloc将environ表拷贝到堆上.<br/>
+环境变量表最后一个表项为空指针A
+
+## setjmp和longjmp
+
+参看[这篇文章](http://www.misakar.me/coroutine_in_c/)关于setjmp和longjmp实现协程的部分.
+
++ [setjmp/longjmp实现错误处理]()
++ [寄存器环境恢复对各类型变量的影响]()
